@@ -1,0 +1,23 @@
+<form ng-submit='$ctrl.editPost($ctrl.edittedPost.id)'>
+  <div>
+    <label for="title">Title</label>
+    <input ng-model='$ctrl.edittedPost.title' id="title" class="form-control" required>
+  </div>
+  <div>
+    <label for="body">Body</label>
+    <textarea ng-model='$ctrl.edittedPost.body' id="body" class="form-control" required></textarea>
+  </div>
+  <div>
+    <label for="author">Author</label>
+    <input ng-model='$ctrl.edittedPost.author' id="author" class="form-control" required>
+  </div>
+  <div>
+    <label for="image-url">Image URL</label>
+    <input ng-model='$ctrl.edittedPost.image_url' id="image-url" class="form-control" required>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary">
+      Edit Post
+    </button>
+  </div>
+</form>

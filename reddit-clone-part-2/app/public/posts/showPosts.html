@@ -1,0 +1,84 @@
+<div class="pull-right">
+    <p><a class="btn btn-info" ui-sref='addPost'>New Post</a></p>
+  </div>
+
+  <ul class="nav nav-pills">
+    <li role="presentation" class="active">
+      <input ng-model='filter' type="search" class="form-control input-sm search-form" placeholder="Filter">
+    </li>
+    <div class="form-inline">
+      <label for="sort">  Sort by </label>
+      <select ng-model='sortPosts' ng-init='sortPosts = "-created_at"'class="form-control" id="sort">
+        <option value='-author'>Author Descending</option>
+        <option value='author'>Author Ascending</option>
+        <option value='-created_at'>Date Descending</option>
+        <option value='created_at'>Date Ascending</option>
+        <option value='-title'>Title Descending</option>
+        <option value='title'>Title Ascending</option>
+        <option value='-vote_count'>Votes Descending</option>
+        <option value='vote_count'>Votes Ascending</option>
+
+
+      </select>
+    </div>
+  </ul>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="well" ng-repeat='post in $ctrl.posts | orderBy: sortPosts | filter: {title: filter}'>
+        <div class="media-left image_holder" >
+          <img class="media-object post_image" ng-src={{post.image_url}}>
+          <a ui-sref='editPost({id: post.id})'>Edit</a>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">
+            {{post.title}}
+            |
+            <a><i ng-click='$ctrl.upVote(post)' class="glyphicon glyphicon-arrow-up"></i></a>
+            <a><i ng-click='$ctrl.downVote(post)' class="glyphicon glyphicon-arrow-down"></i></a>
+            {{post.vote_count}}
+          </h4>
+          <div class="text-right">
+            {{post.author}}
+          </div>
+          <p>
+            {{post.body}}
+          </p>
+          <div>
+            <span am-time-ago='post.created_at'></span>
+            |
+            <i class="glyphicon glyphicon-comment"></i>
+            <a ng-click='$ctrl.setShowComments($index)' ng-hide='$ctrl.commentsOn($index)'>
+              <ng-pluralize count='post.comments.length' when="{'0': '0 comments', '1': '1 comment', 'other': '{} comments'}"></ng-pluralize>
+            </a>
+            <a ng-show='$ctrl.commentsOn($index)' ng-click='$ctrl.setShowComments(-1)'>
+              <ng-pluralize count='post.comments.length' when="{'1': 'Hide comment', 'other': 'Hide comments'}"></ng-pluralize>
+            </a>
+          </div>
+          <div class="row" ng-show='$ctrl.commentsOn($index)'>
+            <div class="col-md-offset-1">
+              <div ng-repeat='comment in post.comments'>
+                <div class="">
+                  {{comment.content}}   --<span am-time-ago='comment.created_at'></span>
+                </div>
+              </div>
+              <hr>
+              <p>
+                Add Comment
+              </p>
+              <form ng-submit='$ctrl.addComment(post.id)' class="form-inline">
+                <div class="form-group">
+                  <input ng-model='$ctrl.newComment.content'class="form-control">
+                </div>
+                <div class="form-group">
+                  <input type="submit" class="btn btn-primary">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>

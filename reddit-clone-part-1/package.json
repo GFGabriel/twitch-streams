@@ -1,0 +1,29 @@
+
+{
+  "name": "angular-drill",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "postinstall": "webdriver-manager update",
+    "ensure-app": "if [ ! -d ../app/node_modules ]; then (cd ../app && yarn) fi",
+    "test": "npm run ensure-app && NODE_ENV=test protractor test/conf.js",
+    "start": "lite-server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.18.5",
+    "express": "^4.14.0",
+    "mocha": "^2.5.3",
+    "protractor": "latest",
+    "protractor-jasmine2-screenshot-reporter": "latest"
+  },
+  "dependencies": {
+    "angular": "^1.6.0",
+    "angular-moment": "^1.0.1",
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1",
+    "moment": "^2.17.1"
+  }
+}
